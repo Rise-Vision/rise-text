@@ -78,6 +78,10 @@ Run the following command in Terminal: `polymer serve`.
 
 Now in your browser, navigate to:
 
+```
+http://127.0.0.1:8081/components/rise-text/demo/src/rise-text-dev.html
+```
+
 ## Submitting Issues
 If you encounter problems or find defects we really want to hear about them. If you could take the time to add them as issues to this Repository it would be most appreciated. When reporting issues, please use the following format where applicable:
 
