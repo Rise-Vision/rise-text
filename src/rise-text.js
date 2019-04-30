@@ -14,6 +14,11 @@ export default class RiseText extends PolymerElement {
     }
   }
 
+  // Event name constants
+  static get EVENT_CONFIGURED() {
+    return "configured";
+  }
+  
   constructor() {
     super();
   }
@@ -30,6 +35,15 @@ export default class RiseText extends PolymerElement {
 
   _init() {
     console.log("init"); // eslint-disable-line no-console
+    this._sendEvent(RiseText.EVENT_CONFIGURED);
+  }
+
+  _sendEvent(eventName, detail = {}) {
+    const event = new CustomEvent(eventName, {
+      bubbles: true, composed: true, detail
+    });
+
+    this.dispatchEvent(event);
   }
 
 }
