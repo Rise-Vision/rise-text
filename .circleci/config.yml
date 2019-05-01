@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   install:
     docker: &BUILDIMAGE
-      - image: jenkinsrise/cci-v2-components:0.0.4
+      - image: jenkinsrise/cci-v2-components:0.0.5
     steps:
       - checkout
       - restore_cache:
@@ -53,8 +53,7 @@ jobs:
             - gcloud
 
   generate-version:
-    docker:
-      - image: jenkinsrise/cci-v2-components:0.0.4
+    docker: *BUILDIMAGE
     steps:
       - run: mkdir version-string
       - run: echo $(date +%Y.%m.%d.%H.%M) > version-string/version
