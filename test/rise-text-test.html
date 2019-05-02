@@ -31,10 +31,35 @@
     <script type="module">
       suite('rise-text', () => {
 
-        test('setting text value on the element works', () => {
-          // Create a test fixture
+        test('setting "value" attribute on the element works', () => {
+          // Get instance of element from test fixture
           const element = fixture('StaticValueTestFixture');
           assert.equal(element.value, 'Hello World');
+        });
+
+        test('updating "value" attribute on the element works', () => {
+          // Get instance of element from test fixture
+          const element = fixture('StaticValueTestFixture');
+          element.setAttribute('value', 'New Value with special characters > < & " \' / ');
+          assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+        });
+
+        test('updating "value" property on the element works', () => {
+          // Get instance of element from test fixture
+          const element = fixture('StaticValueTestFixture');
+          element['value'] = 'New Value with special characters > < & " \' / ';
+          assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+        });
+
+        test('"configured" event should be sent when "ready" is called', (done) => {
+          const element = fixture('StaticValueTestFixture');
+          element.addEventListener('configured', function (event) {
+            assert.equal(event.type, 'configured');
+            done();
+          });
+
+          //calling "ready" should trigger event
+          element.ready();
         });
 
       });
