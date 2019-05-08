@@ -18,7 +18,7 @@ export default class RiseText extends PolymerElement {
   static get EVENT_CONFIGURED() {
     return "configured";
   }
-  
+
   constructor() {
     super();
   }
@@ -34,7 +34,6 @@ export default class RiseText extends PolymerElement {
   }
 
   _init() {
-    console.log("init"); // eslint-disable-line no-console
     this._sendEvent(RiseText.EVENT_CONFIGURED);
   }
 
