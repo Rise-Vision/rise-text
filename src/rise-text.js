@@ -3,23 +3,13 @@ import {PolymerElement, html} from "@polymer/polymer";
 export default class RiseText extends PolymerElement {
 
   static get template() {
-    return html`[[renderedValue]]`;
+    return html`[[value]]`;
   }
 
   static get properties() {
     return {
       value: {
         type: String
-      },
-      startEventReceived: {
-        type: Boolean,
-        value: false
-      },
-      renderedValue: {
-        type: String,
-        // when `value` or `startEventReceived` changes `computeRenderedValue` is called once
-        // and the value it returns is stored as `renderedValue`
-        computed: "_computeRenderedValue(value, startEventReceived)"
       }
     }
   }
@@ -31,13 +21,10 @@ export default class RiseText extends PolymerElement {
 
   constructor() {
     super();
-    this._started = false;
   }
 
   ready() {
     super.ready();
-
-    window.addEventListener( "start", () => this._start(), { once: true });
 
     if (RisePlayerConfiguration.isConfigured()) {
       this._init();
@@ -48,18 +35,6 @@ export default class RiseText extends PolymerElement {
 
   _init() {
     this._sendEvent(RiseText.EVENT_CONFIGURED);
-  }
-
-  _start() {
-    this.startEventReceived = true;
-  }
-
-  _computeRenderedValue(value, startEventReceived) {
-    if (startEventReceived) {
-      return value;
-    } else {
-      return "";
-    }
   }
 
   _sendEvent(eventName, detail = {}) {
