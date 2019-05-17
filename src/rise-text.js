@@ -54,7 +54,7 @@ export default class RiseText extends PolymerElement {
     this.startEventReceived = true;
   }
 
-  _computeFullName(value, startEventReceived) {
+  _computeRenderedValue(value, startEventReceived) {
     if (startEventReceived) {
       return value;
     } else {
