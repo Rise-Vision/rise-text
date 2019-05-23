@@ -90,8 +90,6 @@ jobs:
           sed "
             s/__STAGE__/<< parameters.stage >>/;
             s/__VERSION__/$VERSION/;
-            s/__PLAYER__/electron/;
-            s/__CONNECTION__/websocket/;
           " e2e/rise-text.html > e2e/rise-text-electron.html
       - run: cp e2e/polymer-e2e-electron.json polymer.json
       - run: polymer build
