@@ -317,7 +317,7 @@ workflows:
           stage: beta
           name: deploy-beta
           requires:
-            - deploy-e2e-page-beta
+            - test-e2e-electron-beta
           filters:
             branches:
               only:
@@ -327,7 +327,7 @@ workflows:
           stage: stable
           name: deploy-stable
           requires:
-            - deploy-e2e-page-stable
+            - test-e2e-electron-stable
           filters:
             branches:
               only:
