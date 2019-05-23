@@ -317,8 +317,7 @@ workflows:
           stage: beta
           name: deploy-beta
           requires:
-            - gcloud-setup
-            - build
+            - deploy-e2e-page-beta
           filters:
             branches:
               only:
@@ -328,8 +327,7 @@ workflows:
           stage: stable
           name: deploy-stable
           requires:
-            - gcloud-setup
-            - build
+            - deploy-e2e-page-stable
           filters:
             branches:
               only:
