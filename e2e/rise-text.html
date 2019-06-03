@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <style>
+      .text { 
+        font-size: 72px;
+        font-family: sans-serif;
+      }
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+
     <script src="https://widgets.risevision.com/scripts/primus-local-messaging.js"></script>
 
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
@@ -34,8 +47,11 @@
     </style>
   </head>
   <body>
-    <rise-text value="Hello World!">
-    </rise-text>
+    <rise-text value="Hello World!" class="text"></rise-text>
+    <br />
+    <rise-text value="Hello World!" class="text red"></rise-text>
+    <br />
+    <rise-text value="Hello World!" class="text green"></rise-text>
 
     <script>
       function configureComponents() {
