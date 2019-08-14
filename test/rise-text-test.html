@@ -37,18 +37,36 @@
           assert.equal(element.value, 'Hello World');
         });
 
-        test('updating "value" attribute on the element works', () => {
+        test('updating "value" attribute on the element works', (done) => {
           // Get instance of element from test fixture
           const element = fixture('StaticValueTestFixture');
           element.setAttribute('value', 'New Value with special characters > < & " \' / ');
           assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+
+          element.addEventListener('data-update', function (event) {
+            assert.equal(event.type, 'data-update');
+            assert.equal(event.detail.newValue, 'New Value 2');
+            assert.equal(event.detail.oldValue, 'New Value with special characters > < & " \' / ');
+            done();
+          });
+
+          element.setAttribute('value', 'New Value 2');
         });
 
-        test('updating "value" property on the element works', () => {
+        test('updating "value" property on the element works', (done) => {
           // Get instance of element from test fixture
           const element = fixture('StaticValueTestFixture');
           element['value'] = 'New Value with special characters > < & " \' / ';
           assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+
+          element.addEventListener('data-update', function (event) {
+            assert.equal(event.type, 'data-update');
+            assert.equal(event.detail.newValue, 'New Value 2');
+            assert.equal(event.detail.oldValue, 'New Value with special characters > < & " \' / ');
+            done();
+          });
+
+          element['value'] = 'New Value 2';
         });
 
         test('"configured" event should be sent when "ready" is called', (done) => {

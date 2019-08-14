@@ -10,15 +10,24 @@ export default class RiseText extends RiseElement {
   static get properties() {
     return {
       value: {
-        type: String
+        type: String,
+        observer: "_valueChanged"
       }
     }
+  }
+
+  // Event name constants
+  static get EVENT_DATA_UPDATE() {
+    return "data-update";
   }
 
   constructor() {
     super();
   }
 
+  _valueChanged(newValue, oldValue) {
+    super._sendEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue});
+  }
 }
 
 customElements.define("rise-text", RiseText);
