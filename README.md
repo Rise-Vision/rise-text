@@ -41,6 +41,14 @@ This component receives the following list of attributes:
 The component sends the following events:
 
 - **_configured_**: The component has initialized what it requires to and is ready to handle a _start_ event.
+- **_data-update_**: Event is sent when text value changes. Here is an example of event consumption:
+```
+  element.addEventListener('data-update', function (event) {
+    console.log(event.type); // prints 'data-update'
+    console.log(event.detail.newValue); // prints new text value
+    console.log(event.detail.oldValue); // prints old (previous) text value
+  });
+```
 
 ## Built With
 - [Polymer 3](https://www.polymer-project.org/)

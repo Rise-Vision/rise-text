@@ -1,6 +1,6 @@
 {
   "name": "rise-text",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Web component for displaying text on a Rise Vision Template page",
   "scripts": {
     "prebuild": "eslint .",
