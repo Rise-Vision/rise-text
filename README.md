@@ -44,9 +44,9 @@ The component sends the following events:
 - **_data-update_**: Event is sent when text value changes. Here is an example of event consumption:
 ```
   element.addEventListener('data-update', function (event) {
-    conslove.log(event.type); // prints 'data-update'
-    conslove.log(event.detail.newValue); // prints new text value
-    conslove.log(event.detail.oldValue); // prints old (previous) text value
+    console.log(event.type); // prints 'data-update'
+    console.log(event.detail.newValue); // prints new text value
+    console.log(event.detail.oldValue); // prints old (previous) text value
   });
 ```
 
