@@ -1,5 +1,6 @@
 import { html } from "@polymer/polymer";
 import { RiseElement } from "rise-common-component/src/rise-element.js";
+import { version } from "./rise-text-version.js";
 
 export default class RiseText extends RiseElement {
 
@@ -23,6 +24,8 @@ export default class RiseText extends RiseElement {
 
   constructor() {
     super();
+
+    this._setVersion( version );
   }
 
   _valueChanged(newValue, oldValue) {
