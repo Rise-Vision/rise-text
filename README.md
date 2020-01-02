@@ -31,7 +31,7 @@ If it's not set, the label for the component defaults to "Text", which is applie
 
 This component receives the following list of attributes:
 
-- **id**: ( string ): Unique HTMLElement id.
+- **id**: ( string / required ): Unique HTMLElement id.
 - **value**: ( string / required ): The text value that is rendered.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
