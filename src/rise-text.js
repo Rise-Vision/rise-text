@@ -21,10 +21,6 @@ export default class RiseText extends RiseElement {
       fontsize: {
         type: Number,
         observer: "_fontsizeChanged"
-      },
-      validFont: {
-        type: Boolean,
-        value: false
       }
     };
   }
