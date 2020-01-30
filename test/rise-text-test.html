@@ -80,6 +80,31 @@
           element.ready();
         });
 
+        suite('validFont', () => {
+          test('validFont should be set to true when fontsize is valid', (done) => {
+            const element = fixture('StaticValueTestFixture');
+
+            element.ready();
+            element.fontsize = 100;
+
+            setTimeout(() => {
+              assert(element.validFont);
+              done();
+            }, 100);
+          });
+
+          test('validFont should be set to false when fontsize is not valid', (done) => {
+            const element = fixture('StaticValueTestFixture');
+
+            element.ready();
+            element.fontsize = -1;
+
+            setTimeout(() => {
+              assert(!element.validFont);
+              done();
+            }, 100);
+          });
+        });
       });
     </script>
 
