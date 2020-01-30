@@ -7,8 +7,8 @@ export default class RiseText extends RiseElement {
 
   static get template() {
     return html`
-      <template is="dom-if" if="{{fontsize > 0}}"><span style="font-size: [[fontsize]]px">[[value]]</span></template>
-      <template is="dom-if" if="{{!fontsize}}">[[value]]</template>
+      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px">[[value]]</span></template>
+      <template is="dom-if" if="{{!validFont}}">[[value]]</template>
     `;
   }
 
@@ -19,7 +19,12 @@ export default class RiseText extends RiseElement {
         observer: "_valueChanged"
       },
       fontsize: {
-        type: Number
+        type: Number,
+        observer: "_fontsizeChanged"
+      },
+      validFont: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -37,6 +42,10 @@ export default class RiseText extends RiseElement {
 
   _valueChanged(newValue, oldValue) {
     super._sendEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue});
+  }
+
+  _fontsizeChanged(newValue) {
+    this.validFont = newValue && newValue > 0;
   }
 }
 
