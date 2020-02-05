@@ -27,12 +27,15 @@ This attribute holds a literal value, for example:
 
 If it's not set, the label for the component defaults to "Text", which is applied via the [generate_blueprint.js](https://github.com/Rise-Vision/html-template-library/blob/master/generate_blueprint.js) file for a HTML Template build/deployment.
 
+The component provides an additional numeric property, `fontsize`, which can be used to specify a size in pixel units. This property exists mainly to allow users customization of `rise-text` instances on Attribute Editor. If not provided in the template, the size of the text component will depend on external styling (it can still be customized on Attribute Editor).
+
 ### Attributes
 
 This component receives the following list of attributes:
 
 - **id**: ( string / required ): Unique HTMLElement id.
 - **value**: ( string / required ): The text value that is rendered.
+- **fontsize**: ( numeric / optional ): The size in pixels of the component to be rendered. If not provided, it relies on external styling.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 
@@ -46,7 +49,8 @@ The component sends the following events:
   element.addEventListener('data-update', function (event) {
     console.log(event.type); // prints 'data-update'
     console.log(event.detail.newValue); // prints new text value
-    console.log(event.detail.oldValue); // prints old (previous) text value
+    console.log(event.detail.oldValue); // prints old (previous) text value. If the changed property is fontsize, newValue will be equal to oldValue
+    console.log(event.detail.fontsize); // prints fontsize
   });
 ```
 
