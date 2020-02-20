@@ -7,7 +7,7 @@
     "prebuild": "eslint .",
     "build": "polymer build && ./node_modules/rise-common-component/scripts/extract-source.sh rise-text",
     "pretest": "eslint .",
-    "test": "polymer test --root ./ --config-file ./node_modules/rise-common-component/wct.conf.js"
+    "test": "polymer test"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@polymer/test-fixture": "^4.0.2",
     "chai": "^4.2.0",
+    "coveralls": "3.0.6",
     "eslint": "^5.16.0",
     "mocha": "^5.2.0",
     "wct-istanbul": "^0.14.3",
