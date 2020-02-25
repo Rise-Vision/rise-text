@@ -11,6 +11,7 @@
     <script src="../node_modules/mocha/mocha.js"></script>
     <script src="../node_modules/chai/chai.js"></script>
     <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+    <script src="../node_modules/sinon/pkg/sinon.js"></script>
 
     <script type="text/javascript">
       RisePlayerConfiguration = {
@@ -30,16 +31,38 @@
 
     <script type="module">
       suite('rise-text', () => {
+        let sandbox = sinon.createSandbox();
+        let element, riseElement;
+
+        setup(() => {
+          RisePlayerConfiguration.isPreview = () => {
+            return false;
+          };
+
+          RisePlayerConfiguration.Logger = {
+            info: () => {},
+            warning: () => {},
+            error: sinon.spy()
+          };
+
+          element = fixture("StaticValueTestFixture");
+
+          riseElement = element.__proto__.__proto__;
+
+          sandbox.spy(riseElement, '_sendEvent');
+          sandbox.stub(riseElement, '_setUptimeError');
+          sandbox.stub(riseElement, 'log');
+        });
+
+        teardown(()=>{
+          sandbox.restore();
+        });
 
         test('setting "value" attribute on the element works', () => {
-          // Get instance of element from test fixture
-          const element = fixture('StaticValueTestFixture');
           assert.equal(element.value, 'Hello World');
         });
 
         test('updating "value" attribute on the element works', (done) => {
-          // Get instance of element from test fixture
-          const element = fixture('StaticValueTestFixture');
           element.setAttribute('value', 'New Value with special characters > < & " \' / ');
           assert.equal(element.value, 'New Value with special characters > < & " \' / ');
 
@@ -54,8 +77,6 @@
         });
 
         test('updating "value" property on the element works', (done) => {
-          // Get instance of element from test fixture
-          const element = fixture('StaticValueTestFixture');
           element['value'] = 'New Value with special characters > < & " \' / ';
           assert.equal(element.value, 'New Value with special characters > < & " \' / ');
 
@@ -70,7 +91,6 @@
         });
 
         test('"configured" event should be sent when "ready" is called', (done) => {
-          const element = fixture('StaticValueTestFixture');
           element.addEventListener('configured', function (event) {
             assert.equal(event.type, 'configured');
             done();
@@ -82,8 +102,6 @@
 
         suite('validFont', () => {
           test('validFont should be set to true when fontsize is valid', (done) => {
-            const element = fixture('StaticValueTestFixture');
-
             element.ready();
             element.fontsize = 100;
 
@@ -94,13 +112,72 @@
           });
 
           test('validFont should be set to false when fontsize is not valid', (done) => {
-            const element = fixture('StaticValueTestFixture');
-
             element.ready();
             element.fontsize = -1;
 
             setTimeout(() => {
               assert(!element.validFont);
+              done();
+            }, 100);
+          });
+        });
+
+        suite('min and max font size', () => {
+          test('an error should be logged when minfontsize is not valid', (done) => {
+            element.ready();
+            element.minfontsize = -1;
+
+            setTimeout(() => {
+              assert( element.log.getCall(0).args[0], 'data-error' );
+              assert( element.log.getCall(0).args[1], 'Minimum font size must be greater than 0' );
+              done();
+            }, 100);
+          });
+
+          test('an error should be logged when minfontsize is not valid', (done) => {
+            element.ready();
+            element.maxfontsize = -1;
+
+            setTimeout(() => {
+              assert( element.log.getCall(0).args[0], 'data-error' );
+              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than 0' );
+              done();
+            }, 100);
+          });
+
+          test('an error should be logged when minfontsize > maxfontsize', (done) => {
+            element.ready();
+            element.minfontsize = 20;
+            element.maxfontsize = 10;
+
+            setTimeout(() => {
+              assert( element.log.getCall(0).args[0], 'data-error' );
+              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              done();
+            }, 100);
+          });
+
+          test('an error should be logged when minfontsize > maxfontsize', (done) => {
+            element.ready();
+            element.minfontsize = 20;
+            element.maxfontsize = 10;
+
+            setTimeout(() => {
+              assert( element.log.getCall(0).args[0], 'data-error' );
+              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              done();
+            }, 100);
+          });
+
+          test('an error should be logged when fontsize is out of [minfontsize, maxfontsize] bounds', (done) => {
+            element.ready();
+            element.minfontsize = 10;
+            element.maxfontsize = 20;
+            element.fontsize = 30;
+
+            setTimeout(() => {
+              assert( element.log.getCall(0).args[0], 'data-error' );
+              assert( element.log.getCall(0).args[1], 'Font size must be lower than or equal to the maximum' );
               done();
             }, 100);
           });

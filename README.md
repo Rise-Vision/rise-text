@@ -36,6 +36,8 @@ This component receives the following list of attributes:
 - **id**: ( string / required ): Unique HTMLElement id.
 - **value**: ( string / required ): The text value that is rendered.
 - **fontsize**: ( numeric / optional ): The size in pixels of the component to be rendered. If not provided, it relies on external styling.
+- **minfontsize**: (numeric / optional ): The minimum value the fontsize attribute can accept. Defaults to 1.
+- **maxfontsize**: (numeric / optional ): The maximum value the fontsize attribute can accept. Defaults to 200.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 
@@ -43,8 +45,8 @@ This component receives the following list of attributes:
 
 The component sends the following events:
 
-- **_configured_**: The component has initialized what it requires to and is ready to handle a _start_ event.
-- **_data-update_**: Event is sent when text value changes. Here is an example of event consumption:
+- **configured**: The component has initialized what it requires to and is ready to handle a _start_ event.
+- **data-update**: Event is sent when text value changes. Here is an example of event consumption:
 ```
   element.addEventListener('data-update', function (event) {
     console.log(event.type); // prints 'data-update'
@@ -53,6 +55,10 @@ The component sends the following events:
     console.log(event.detail.fontsize); // prints fontsize
   });
 ```
+- **data-error**: An event indicating there have been invalid attribute values provided. An error object is provided in `event.details`. This event will be sent once only. The reasons for failure are limited to:
+  - `fontsize` being out of bounds
+  - `minfontsize` being lower than 1
+  - `maxfontsize` being lower than 1 or lower than `minfontsize`
 
 ## Built With
 - [Polymer 3](https://www.polymer-project.org/)
