@@ -44,14 +44,14 @@ export default class RiseText extends RiseElement {
   }
 
   _valueChanged(newValue, oldValue) {
-    super._sendEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue, fontsize: this.fontsize});
+    this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue, fontsize: this.fontsize});
   }
 
   _fontsizeChanged() {
     this.validFont = this._checkFontSize();
 
     if (this.validFont) {
-      super._sendEvent( RiseText.EVENT_DATA_UPDATE, {newValue: this.value, oldValue: this.value, fontsize: this.fontsize});
+      this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue: this.value, oldValue: this.value, fontsize: this.fontsize});
     }
   }
 

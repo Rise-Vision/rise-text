@@ -84,6 +84,7 @@
             assert.equal(event.type, 'data-update');
             assert.equal(event.detail.newValue, 'New Value 2');
             assert.equal(event.detail.oldValue, 'New Value with special characters > < & " \' / ');
+            assert( element._setUptimeError.calledWith( false ) );
             done();
           });
 
@@ -130,6 +131,7 @@
             setTimeout(() => {
               assert( element.log.getCall(0).args[0], 'data-error' );
               assert( element.log.getCall(0).args[1], 'Minimum font size must be greater than 0' );
+              assert( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -141,6 +143,7 @@
             setTimeout(() => {
               assert( element.log.getCall(0).args[0], 'data-error' );
               assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than 0' );
+              assert( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -153,6 +156,7 @@
             setTimeout(() => {
               assert( element.log.getCall(0).args[0], 'data-error' );
               assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              assert( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -165,6 +169,7 @@
             setTimeout(() => {
               assert( element.log.getCall(0).args[0], 'data-error' );
               assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              assert( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -178,6 +183,20 @@
             setTimeout(() => {
               assert( element.log.getCall(0).args[0], 'data-error' );
               assert( element.log.getCall(0).args[1], 'Font size must be lower than or equal to the maximum' );
+              assert( element._setUptimeError.calledWith( true ) );
+              done();
+            }, 100);
+          });
+
+          test('uptime errors should be cleared when fontsize is valid', (done) => {
+            element.ready();
+            element.minfontsize = 10;
+            element.maxfontsize = 20;
+            element.fontsize = 15;
+
+            setTimeout(() => {
+              assert( !element.log.called );
+              assert( element._setUptimeError.calledWith( false ) );
               done();
             }, 100);
           });
