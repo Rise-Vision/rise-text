@@ -27,10 +27,12 @@ export default class RiseText extends RiseElement {
       },
       minfontsize: {
         type: Number,
+        value: MIN_TEXT_SIZE,
         observer: "_checkFontSize"
       },
       maxfontsize: {
         type: Number,
+        value: MAX_TEXT_SIZE,
         observer: "_checkFontSize"
       }
     };
@@ -57,9 +59,6 @@ export default class RiseText extends RiseElement {
 
   _checkFontSize() {
     let validParameters = true;
-
-    const minFontSize = this.minfontsize || MIN_TEXT_SIZE;
-    const maxFontSize = this.maxfontsize || MAX_TEXT_SIZE;
 
     if (this.minfontsize && this.minfontsize < MIN_TEXT_SIZE) {
       super.log( "error", "Minimum font size must be greater than 0", { min: this.minfontsize } );
@@ -92,7 +91,7 @@ export default class RiseText extends RiseElement {
       validParameters = false;
     }
 
-    if (this.fontsize && this.fontsize < minFontSize) {
+    if (this.fontsize && this.fontsize < this.minfontsize) {
       super.log( "error", "Font size must be greater than or equal to the minimum", { min: this.minfontsize, size: this.fontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Font size must be greater than or equal to the minimum",
@@ -103,7 +102,7 @@ export default class RiseText extends RiseElement {
       validParameters = false;
     }
 
-    if (this.fontsize && this.fontsize > maxFontSize) {
+    if (this.fontsize && this.fontsize > this.maxfontsize) {
       super.log( "error", "Font size must be lower than or equal to the maximum", { max: this.maxfontsize, size: this.fontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Font size must be lower than or equal to the maximum",
