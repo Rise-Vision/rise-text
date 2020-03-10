@@ -10,8 +10,8 @@ export default class RiseText extends RiseElement {
 
   static get template() {
     return html`
-      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px">[[value]]</span></template>
-      <template is="dom-if" if="{{!validFont}}">[[value]]</template>
+      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px; white-space: pre-wrap;">[[value]]</span></template>
+      <template is="dom-if" if="{{!validFont}}"><span style="white-space: pre-wrap;">[[value]]</span></template>
     `;
   }
 
