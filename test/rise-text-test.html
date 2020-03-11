@@ -25,7 +25,7 @@
 
     <test-fixture id="StaticValueTestFixture">
       <template>
-        <rise-text value="Hello World"></rise-text>
+        <rise-text value="Hello World" multiline="true"></rise-text>
       </template>
     </test-fixture>
 
@@ -89,6 +89,10 @@
           });
 
           element['value'] = 'New Value 2';
+        });
+
+        test('setting "multiline" attribute on the element works', () => {
+          assert.equal(element.multiline, true);
         });
 
         test('"configured" event should be sent when "ready" is called', (done) => {
