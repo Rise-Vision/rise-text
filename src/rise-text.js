@@ -41,7 +41,8 @@ export default class RiseText extends RiseElement {
         observer: "_checkFontSize"
       },
       multiline: {
-        type: Boolean
+        type: Boolean,
+        value: false
       }
     };
   }
