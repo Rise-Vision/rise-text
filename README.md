@@ -29,6 +29,8 @@ If it's not set, the label for the component defaults to "Text", which is applie
 
 The component provides an additional numeric property, `fontsize`, which can be used to specify a size in pixel units. This property exists mainly to allow users customization of `rise-text` instances on Attribute Editor. If not provided in the template, the size of the text component will depend on external styling (it can still be customized on Attribute Editor).
 
+Also, by setting `multiline` attribute to `true`, the component is capable of handling line breaks from `value` and present them in multiple lines.
+
 ### Attributes
 
 This component receives the following list of attributes:
@@ -38,6 +40,7 @@ This component receives the following list of attributes:
 - **fontsize**: ( numeric / optional ): The size in pixels of the component to be rendered. If not provided, it relies on external styling.
 - **minfontsize**: (numeric / optional ): The minimum value the fontsize attribute can accept. Defaults to 1.
 - **maxfontsize**: (numeric / optional ): The maximum value the fontsize attribute can accept. Defaults to 200.
+- **multiline**: (boolean / optional ): If set to `true`, the component will preserve `value` line breaks and show them in multiple lines. Defaults to `false`.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 
