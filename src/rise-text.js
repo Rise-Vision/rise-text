@@ -10,8 +10,13 @@ export default class RiseText extends RiseElement {
 
   static get template() {
     return html`
-      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px">[[value]]</span></template>
-      <template is="dom-if" if="{{!validFont}}">[[value]]</template>
+      <style>
+        :host([multiline=true]) span {
+          white-space: pre-wrap;
+        }
+      </style>
+      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px;">[[value]]</span></template>
+      <template is="dom-if" if="{{!validFont}}"><span>[[value]]</span></template>
     `;
   }
 
@@ -34,6 +39,10 @@ export default class RiseText extends RiseElement {
         type: Number,
         value: MAX_TEXT_SIZE,
         observer: "_checkFontSize"
+      },
+      multiline: {
+        type: Boolean,
+        value: false
       }
     };
   }
