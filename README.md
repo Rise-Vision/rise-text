@@ -29,7 +29,13 @@ If it's not set, the label for the component defaults to "Text", which is applie
 
 The component provides an additional numeric property, `fontsize`, which can be used to specify a size in pixel units. This property exists mainly to allow users customization of `rise-text` instances on Attribute Editor. If not provided in the template, the size of the text component will depend on external styling (it can still be customized on Attribute Editor).
 
-Also, by setting `multiline` attribute to `true`, the component is capable of handling line breaks from `value` and present them in multiple lines.
+Also, by setting `multiline` attribute to `true`, the component is capable of handling line breaks from `value` and present them in multiple lines. Line breaks can be simulated locally by adding a line break to the value attribute in the HTML:
+
+```
+<rise-text value="Hello
+   World!" fontsize="100" multiline="true">
+</rise-text>
+```
 
 ### Attributes
 
