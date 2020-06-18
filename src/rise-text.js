@@ -15,13 +15,16 @@ export default class RiseText extends RiseElement {
           white-space: pre-wrap;
         }
       </style>
-      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px;">[[value]]</span></template>
-      <template is="dom-if" if="{{!validFont}}"><span>[[value]]</span></template>
+      <template>[[richText]]</template>
     `;
   }
 
   static get properties() {
     return {
+      richText: {
+        type: Html,
+        observer: "_valueChanged"
+      },
       value: {
         type: String,
         observer: "_valueChanged"
