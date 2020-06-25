@@ -147,7 +147,7 @@ export default class RiseText extends RiseElement {
 
     let html = this.richText;
 
-    //backwards compatability
+    //backwards compatibility
     if (!this._richTextIsSet()) {
       if (this.validFont) {
         html = `<span style="font-size: ${this.fontsize}px;">${this.value}</span>`;
