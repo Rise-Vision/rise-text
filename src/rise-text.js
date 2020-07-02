@@ -9,14 +9,21 @@ const MAX_TEXT_SIZE = 200;
 export default class RiseText extends RiseElement {
 
   static get template() {
-    return html``;
+    return html`
+      <style>
+        :host([multiline=true]) span {
+          white-space: pre-wrap;
+        }
+      </style>
+      <template>[[richText]]</template>
+    `;
   }
 
   static get properties() {
     return {
       richText: {
-        type: String,
-        observer: "_richTextChanged"
+        type: Html,
+        observer: "_valueChanged"
       },
       value: {
         type: String,
@@ -50,15 +57,7 @@ export default class RiseText extends RiseElement {
     this.validFont = false;
   }
 
-  _richTextChanged(newValue, oldValue) {
-    this._refresh();
-    this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue, content: "html"});
-  }
-
   _valueChanged(newValue, oldValue) {
-    if (!this._richTextIsSet()) {
-      this._refresh();
-    }
     this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue, oldValue, fontsize: this.fontsize});
   }
 
@@ -66,9 +65,6 @@ export default class RiseText extends RiseElement {
     this.validFont = this._checkFontSize();
 
     if (this.validFont) {
-      if (!this._richTextIsSet()) {
-        this._refresh();
-      }
       this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue: this.value, oldValue: this.value, fontsize: this.fontsize});
     }
   }
@@ -130,33 +126,6 @@ export default class RiseText extends RiseElement {
     }
 
     return validParameters;
-  }
-
-  _richTextIsSet() {
-    return typeof this.richText !== "undefined"
-  }
-
-  _refresh() {
-    const css = `
-<style>
-  :host([multiline=true]) span {
-    white-space: pre-wrap;
-  }
-</style>
-    `;
-
-    let html = this.richText;
-
-    //backwards compatibility
-    if (!this._richTextIsSet()) {
-      if (this.validFont) {
-        html = `<span style="font-size: ${this.fontsize}px;">${this.value}</span>`;
-      } else {
-        html = `<span>${this.value}</span>`;
-      }
-    }
-
-    this.shadowRoot.innerHTML = css + html;
   }
 
   _sendTextEvent( eventName, detail ) {
