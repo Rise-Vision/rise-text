@@ -1,6 +1,6 @@
 {
   "name": "rise-text",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Web component for displaying text on a Rise Vision Template page",
   "scripts": {
     "prebuild": "eslint .",
@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/Rise-Vision/rise-text/#readme",
   "dependencies": {
-    "rise-common-component": "git://github.com/Rise-Vision/rise-common-component.git#v1.6.1"
+    "rise-common-component": "git://github.com/Rise-Vision/rise-common-component.git#v1.8.1"
   }
 }
