@@ -70,7 +70,7 @@ export default class RiseText extends RiseElement {
     let validParameters = true;
 
     if (this.minfontsize && this.minfontsize < MIN_TEXT_SIZE) {
-      super.log( RiseText.LOG_TYPE_ERROR, "Minimum font size must be greater than 0", {errorCode: "E000000030"}, { min: this.minfontsize } );
+      super.log( RiseText.LOG_TYPE_ERROR, "Minimum font size must be greater than 0", {errorCode: "E000000032"}, { min: this.minfontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Minimum font size must be greater 0",
         min: this.minfontsize
@@ -80,7 +80,7 @@ export default class RiseText extends RiseElement {
     }
 
     if (this.maxfontsize && this.maxfontsize < MIN_TEXT_SIZE) {
-      super.log( RiseText.LOG_TYPE_ERROR, "Maximum font size must be greater than 0", {errorCode: "E000000031"}, { max: this.maxfontsize } );
+      super.log( RiseText.LOG_TYPE_ERROR, "Maximum font size must be greater than 0", {errorCode: "E000000032"}, { max: this.maxfontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Maximum font size must be greater 0",
         max: this.maxfontsize
@@ -100,7 +100,7 @@ export default class RiseText extends RiseElement {
       validParameters = false;
     }
 
-    if (this.fontsize && this.fontsize < this.minfontsize) {
+    if (this.hasAttribute("fontsize") && this.getAttribute("fontsize") < this.minfontsize) {
       super.log( RiseText.LOG_TYPE_ERROR, "Font size must be greater than or equal to the minimum", {errorCode: "E000000033"}, { min: this.minfontsize, size: this.fontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Font size must be greater than or equal to the minimum",
@@ -111,8 +111,8 @@ export default class RiseText extends RiseElement {
       validParameters = false;
     }
 
-    if (this.fontsize && this.fontsize > this.maxfontsize) {
-      super.log( RiseText.LOG_TYPE_ERROR, "Font size must be lower than or equal to the maximum", {errorCode: "E000000034"}, { max: this.maxfontsize, size: this.fontsize } );
+    if (this.hasAttribute("fontsize") && this.getAttribute("fontsize") > this.maxfontsize) {
+      super.log( RiseText.LOG_TYPE_ERROR, "Font size must be lower than or equal to the maximum", {errorCode: "E000000033"}, { max: this.maxfontsize, size: this.fontsize } );
       this._sendTextEvent( RiseText.EVENT_DATA_ERROR, {
         message: "Font size must be lower than or equal to the maximum",
         max: this.maxfontsize,
