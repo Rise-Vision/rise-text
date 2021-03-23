@@ -86,7 +86,7 @@
             assert.equal(event.type, 'data-update');
             assert.equal(event.detail.newValue, 'New Value 2');
             assert.equal(event.detail.oldValue, 'New Value with special characters > < & " \' / ');
-            assert( element._setUptimeError.calledWith( false ) );
+            assert.isTrue( element._setUptimeError.calledWith( false ) );
             done();
           });
 
@@ -113,17 +113,18 @@
             element.fontsize = 100;
 
             setTimeout(() => {
-              assert(element.validFont);
+              assert.isTrue(element.validFont);
               done();
             }, 100);
           });
 
           test('validFont should be set to false when fontsize is not valid', (done) => {
             element.ready();
-            element.fontsize = -1;
+            element.setAttribute('fontsize', '-1');
 
             setTimeout(() => {
-              assert(!element.validFont);
+              assert.equal( element.log.getCall(0).args[2].errorCode, "E000000033");
+              assert.isTrue(!element.validFont);
               done();
             }, 100);
           });
@@ -135,21 +136,23 @@
             element.minfontsize = -1;
 
             setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Minimum font size must be greater than 0' );
-              assert( element._setUptimeError.calledWith( true ) );
+              assert.equal( element.log.getCall(0).args[0], 'error' );
+              assert.equal( element.log.getCall(0).args[1], 'Minimum font size must be greater than 0' );
+              assert.equal( element.log.getCall(0).args[2].errorCode, "E000000032");
+              assert.isTrue( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
 
-          test('an error should be logged when minfontsize is not valid', (done) => {
+          test('an error should be logged when maxfontsize is not valid', (done) => {
             element.ready();
             element.maxfontsize = -1;
 
             setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than 0' );
-              assert( element._setUptimeError.calledWith( true ) );
+              assert.equal( element.log.getCall(0).args[0], 'error' );
+              assert.equal( element.log.getCall(0).args[1], 'Maximum font size must be greater than 0' );
+              assert.equal( element.log.getCall(0).args[2].errorCode, "E000000032");
+              assert.isTrue( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -160,9 +163,10 @@
             element.maxfontsize = 10;
 
             setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
-              assert( element._setUptimeError.calledWith( true ) );
+              assert.equal( element.log.getCall(0).args[0], 'error' );
+              assert.equal( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              assert.equal( element.log.getCall(0).args[2].errorCode, "E000000032");
+              assert.isTrue( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -173,9 +177,9 @@
             element.maxfontsize = 10;
 
             setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
-              assert( element._setUptimeError.calledWith( true ) );
+              assert.equal( element.log.getCall(0).args[0], 'error' );
+              assert.equal( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
+              assert.isTrue( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -184,12 +188,13 @@
             element.ready();
             element.minfontsize = 10;
             element.maxfontsize = 20;
-            element.fontsize = 30;
+            element.setAttribute('fontsize', '30');
 
             setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Font size must be lower than or equal to the maximum' );
-              assert( element._setUptimeError.calledWith( true ) );
+              assert.equal( element.log.getCall(0).args[0], 'error' );
+              assert.equal( element.log.getCall(0).args[1], 'Font size must be lower than or equal to the maximum' );
+              assert.equal( element.log.getCall(0).args[2].errorCode, "E000000033");
+              assert.isTrue( element._setUptimeError.calledWith( true ) );
               done();
             }, 100);
           });
@@ -201,8 +206,8 @@
             element.fontsize = 15;
 
             setTimeout(() => {
-              assert( !element.log.called );
-              assert( element._setUptimeError.calledWith( false ) );
+              assert.isTrue( !element.log.called );
+              assert.isTrue( element._setUptimeError.calledWith( false ) );
               done();
             }, 100);
           });
