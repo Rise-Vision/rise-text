@@ -94,26 +94,26 @@
         });
 
         suite('multiline', () => {
-          test('setting "multiline" attribute on the element works', () => {
-            assert.equal(element.multiline, true);
+          test('setting multiline="true" attribute on the element works', () => {
+            assert.equal(element.multiline, 'true');
 
             assert.equal(element.whitespaceClass, 'pre-wrap');
           });          
 
-          test('setting "multiline" attribute on the element works', () => {
-            element.multiline = 'true';
+          test('setting multiline to true works', () => {
+            element.multiline = true;
 
             assert.equal(element.whitespaceClass, 'pre-wrap');
           });          
 
-          test('setting "multiline" attribute on the element works', () => {
-            element.multiline = false;
+          test('setting multiline="false" attribute on the element works', () => {
+            element.multiline = 'false';
 
             assert.equal(element.whitespaceClass, '');
           });          
 
-          test('setting "multiline" attribute on the element works', () => {
-            element.multiline = 'false';
+          test('setting multiline to false works', () => {
+            element.multiline = false;
 
             assert.equal(element.whitespaceClass, '');
           });          
