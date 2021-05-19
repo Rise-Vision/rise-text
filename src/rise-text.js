@@ -11,6 +11,11 @@ export default class RiseText extends RiseElement {
   static get template() {
     return html`
       <style>
+        :host([alignment]) {
+          width: 100%;
+          height: 100%;
+          display: flex;
+        }
         :host([multiline=true]) span {
           white-space: pre-wrap;
         }
@@ -43,7 +48,11 @@ export default class RiseText extends RiseElement {
       multiline: {
         type: Boolean,
         value: false
-      }
+      },
+      alignment: {
+        type: String,
+        observer: "_alignmentChanged"
+      },
     };
   }
 
@@ -64,6 +73,36 @@ export default class RiseText extends RiseElement {
     if (this.validFont) {
       this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue: this.value, oldValue: this.value, fontsize: this.fontsize});
     }
+  }
+
+  _alignmentChanged(alignment) {
+    let aligns = alignment.split("-");
+    let vertical = "flex-start";
+
+    switch(aligns[0]) {
+      case "bottom":
+        vertical = "flex-end";
+        break;
+      case "middle":
+        vertical = "center";
+        break;
+      default:
+    }
+
+    let horizontal = "flex-start";
+
+    switch(aligns[1]) {
+      case "right":
+        horizontal = "flex-end";
+        break;
+      case "center":
+        horizontal = "center";
+        break;
+      default:
+    }
+
+    this.style["align-items"] = vertical;
+    this.style["justify-content"] =  horizontal;
   }
 
   _checkFontSize() {
