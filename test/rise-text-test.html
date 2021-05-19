@@ -93,8 +93,30 @@
           element['value'] = 'New Value 2';
         });
 
-        test('setting "multiline" attribute on the element works', () => {
-          assert.equal(element.multiline, true);
+        suite('multiline', () => {
+          test('setting "multiline" attribute on the element works', () => {
+            assert.equal(element.multiline, true);
+
+            assert.equal(element.whitespaceClass, 'pre-wrap');
+          });          
+
+          test('setting "multiline" attribute on the element works', () => {
+            element.multiline = 'true';
+
+            assert.equal(element.whitespaceClass, 'pre-wrap');
+          });          
+
+          test('setting "multiline" attribute on the element works', () => {
+            element.multiline = false;
+
+            assert.equal(element.whitespaceClass, '');
+          });          
+
+          test('setting "multiline" attribute on the element works', () => {
+            element.multiline = 'false';
+
+            assert.equal(element.whitespaceClass, '');
+          });          
         });
 
         test('"configured" event should be sent when "ready" is called', (done) => {

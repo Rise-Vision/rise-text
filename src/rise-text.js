@@ -11,12 +11,12 @@ export default class RiseText extends RiseElement {
   static get template() {
     return html`
       <style>
-        :host([multiline=true]) span {
+        .pre-wrap {
           white-space: pre-wrap;
         }
       </style>
-      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px;">[[value]]</span></template>
-      <template is="dom-if" if="{{!validFont}}"><span>[[value]]</span></template>
+      <template is="dom-if" if="{{validFont}}"><span style="font-size: [[fontsize]]px;" class$="[[whitespaceClass]]">[[value]]</span></template>
+      <template is="dom-if" if="{{!validFont}}"><span class$="[[whitespaceClass]]">[[value]]</span></template>
     `;
   }
 
@@ -42,7 +42,8 @@ export default class RiseText extends RiseElement {
       },
       multiline: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: "_multilineChanged"
       }
     };
   }
@@ -123,6 +124,14 @@ export default class RiseText extends RiseElement {
     }
 
     return validParameters;
+  }
+
+  _multilineChanged() {
+    if (this.multiline === true || this.multiline === "true") {
+      this.whitespaceClass = "pre-wrap";
+    } else {
+      this.whitespaceClass = "";      
+    }
   }
 
   _sendTextEvent( eventName, detail ) {
