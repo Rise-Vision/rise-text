@@ -93,8 +93,30 @@
           element['value'] = 'New Value 2';
         });
 
-        test('setting "multiline" attribute on the element works', () => {
-          assert.equal(element.multiline, true);
+        suite('multiline', () => {
+          test('setting multiline="true" sets the correct attribute value', () => {
+            assert.equal(element.multiline, 'true');
+
+            assert.equal(element.getAttribute('multiline'), 'true');
+          });          
+
+          test('setting multiline to true sets the property as empty', () => {
+            element.multiline = true;
+
+            assert.equal(element.getAttribute('multiline'), '');
+          });          
+
+          test('setting multiline="false" sets the correct attribute value', () => {
+            element.multiline = 'false';
+
+            assert.equal(element.getAttribute('multiline'), 'false');
+          });          
+
+          test('setting multiline to false omits the property', () => {
+            element.multiline = false;
+
+            assert.equal(element.getAttribute('multiline'), null);
+          });          
         });
 
         test('"configured" event should be sent when "ready" is called', (done) => {
