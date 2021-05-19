@@ -1,12 +1,11 @@
 import { html } from "@polymer/polymer";
-import "@polymer/polymer/lib/elements/dom-if.js";
 import { RiseElement } from "rise-common-component/src/rise-element.js";
 import { version } from "./rise-text-version.js";
 
 const MIN_TEXT_SIZE = 1;
 const MAX_TEXT_SIZE = 200;
 
-export default class RiseText extends RiseElement {
+export class RiseText extends RiseElement {
 
   static get template() {
     return html`
@@ -140,4 +139,6 @@ export default class RiseText extends RiseElement {
   }
 }
 
-customElements.define("rise-text", RiseText);
+if ( !customElements.get( "rise-text" )) {
+  customElements.define("rise-text", RiseText);
+}
