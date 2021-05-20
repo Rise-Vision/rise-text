@@ -11,7 +11,7 @@ export default class RiseText extends RiseElement {
   static get template() {
     return html`
       <style>
-        :host([multiline=true]) span {
+        :host([multiline=true]) span, :host([multiline='']) span {
           white-space: pre-wrap;
         }
       </style>
@@ -41,8 +41,9 @@ export default class RiseText extends RiseElement {
         observer: "_checkFontSize"
       },
       multiline: {
-        type: Boolean,
-        value: false
+        type: String,
+        value: "false",
+        reflectToAttribute: true
       }
     };
   }
