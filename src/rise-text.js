@@ -16,7 +16,7 @@ export default class RiseText extends RiseElement {
           height: 100%;
           display: flex;
         }
-        :host([multiline=true]) span {
+        :host([multiline=true]) span, :host([multiline='']) span {
           white-space: pre-wrap;
         }
       </style>
@@ -46,8 +46,9 @@ export default class RiseText extends RiseElement {
         observer: "_checkFontSize"
       },
       multiline: {
-        type: Boolean,
-        value: false
+        type: String,
+        value: "false",
+        reflectToAttribute: true
       },
       verticalalign: {
         type: String,
@@ -63,7 +64,7 @@ export default class RiseText extends RiseElement {
         type: String,
         observer: "_textAlignmentChanged",
         reflectToAttribute: true
-      },
+      }
     };
   }
 
