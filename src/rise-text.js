@@ -11,6 +11,11 @@ export default class RiseText extends RiseElement {
   static get template() {
     return html`
       <style>
+        :host([verticalalign]), :host([horizontalalign]), :host([textalign]) {
+          width: 100%;
+          height: 100%;
+          display: flex;
+        }
         :host([multiline=true]) span, :host([multiline='']) span {
           white-space: pre-wrap;
         }
@@ -44,6 +49,21 @@ export default class RiseText extends RiseElement {
         type: String,
         value: "false",
         reflectToAttribute: true
+      },
+      verticalalign: {
+        type: String,
+        observer: "_verticalAlignmentChanged",
+        reflectToAttribute: true
+      },
+      horizontalalign: {
+        type: String,
+        observer: "_horizontalAlignmentChanged",
+        reflectToAttribute: true
+      },
+      textalign: {
+        type: String,
+        observer: "_textAlignmentChanged",
+        reflectToAttribute: true
       }
     };
   }
@@ -65,6 +85,42 @@ export default class RiseText extends RiseElement {
     if (this.validFont) {
       this._sendTextEvent( RiseText.EVENT_DATA_UPDATE, {newValue: this.value, oldValue: this.value, fontsize: this.fontsize});
     }
+  }
+
+  _verticalAlignmentChanged(verticalalign) {
+    let vertical = "flex-start";
+
+    switch(verticalalign) {
+      case "bottom":
+        vertical = "flex-end";
+        break;
+      case "middle":
+        vertical = "center";
+        break;
+      default:
+    }
+
+    this.style["align-items"] = vertical;
+  }
+
+  _horizontalAlignmentChanged(horizontalalign) {
+    let horizontal = "flex-start";
+
+    switch(horizontalalign) {
+      case "right":
+        horizontal = "flex-end";
+        break;
+      case "center":
+        horizontal = "center";
+        break;
+      default:
+    }
+
+    this.style["justify-content"] =  horizontal;
+  }
+
+  _textAlignmentChanged(textalign) {
+    this.style["text-align"] =  textalign;
   }
 
   _checkFontSize() {

@@ -31,10 +31,16 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="AlignmentTestFixture">
+      <template>
+        <rise-text value="Hello World" multiline="true" verticalalign="bottom" horizontalalign="right" textalign="right"></rise-text>
+      </template>
+    </test-fixture>
+
     <script type="module">
       suite('rise-text', () => {
         let sandbox = sinon.createSandbox();
-        let element, riseElement;
+        let element, alignmentElement, riseElement;
 
         setup(() => {
           RisePlayerConfiguration.isPreview = () => {
@@ -48,6 +54,7 @@
           };
 
           element = fixture("StaticValueTestFixture");
+          alignmentElement = fixture("AlignmentTestFixture");
 
           riseElement = element.__proto__.__proto__;
 
@@ -233,6 +240,73 @@
               done();
             }, 100);
           });
+        });
+
+        suite('alignment:', () => {
+          test('verify no alignment setting', () => {
+            assert.equal( element.style["align-items"], "" );
+            assert.equal( element.style["justify-content"], "" );
+            assert.equal( element.style["text-align"], "" );
+          });
+
+          test('verify default alignment settings', () => {
+            assert.equal( alignmentElement.style["align-items"], "flex-end" );
+            assert.equal( alignmentElement.style["justify-content"], "flex-end" );
+            assert.equal( alignmentElement.style["text-align"], "right" );
+          });
+
+          suite('verticalalign:', () => {
+            test('top', () => {
+              element.verticalalign = 'top';
+
+              assert.equal(element.getAttribute('verticalalign'), 'top');
+
+              assert.equal( element.style["align-items"], "flex-start" );
+            });
+
+            test('middle', () => {
+              element.verticalalign = 'middle';
+
+              assert.equal( element.style["align-items"], "center" );
+            });
+
+            test('bottom', () => {
+              element.verticalalign = 'bottom';
+
+              assert.equal( element.style["align-items"], "flex-end" );
+            });
+          });
+
+          suite('horizontalalign:', () => {
+            test('top', () => {
+              element.horizontalalign = 'left';
+
+              assert.equal(element.getAttribute('horizontalalign'), 'left');
+
+              assert.equal( element.style["justify-content"], "flex-start" );
+            });
+
+            test('middle', () => {
+              element.horizontalalign = 'center';
+
+              assert.equal( element.style["justify-content"], "center" );
+            });
+
+            test('bottom', () => {
+              element.horizontalalign = 'right';
+
+              assert.equal( element.style["justify-content"], "flex-end" );
+            });
+          });
+
+          test('textalign:', () => {
+            element.textalign = 'left';
+
+            assert.equal(element.getAttribute('textalign'), 'left');
+
+            assert.equal( element.style["text-align"], "left" );
+          });
+
         });
       });
     </script>

@@ -82,6 +82,9 @@ This component receives the following list of attributes:
 - **minfontsize**: (numeric / optional ): The minimum value the fontsize attribute can accept. Defaults to 1.
 - **maxfontsize**: (numeric / optional ): The maximum value the fontsize attribute can accept. Defaults to 200.
 - **multiline**: (boolean / optional ): If set to `true`, the component will preserve `value` line breaks and show them in multiple lines. Defaults to `false`.
+- **verticalalign**: (string / optional ): Aligns contents vertically. Possible values: `top`, `middle`, `bottom`.
+- **horizontalalign**: (string / optional ): Aligns contents horizontally. Possible values: `left`, `center`, `right`.
+- **textalign**: (string / optional ): Aligns text horizontally. Possible values: `left`, `center`, `right`.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 
